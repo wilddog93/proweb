@@ -52,7 +52,7 @@
                         
                         @role('admin')
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Dashboard</a>
+                                <a href="{{ url('dashboard') }}" class="nav-link">Dashboard</a>
                             </li>    
                         @endrole
                         
