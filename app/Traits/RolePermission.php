@@ -40,6 +40,17 @@ Trait RolePermission
     }
 
     /**
+     * refreshPermissions function to take it back old permissions and re-create permissions to table
+     */
+    public function refreshPermissions(... $permissions)
+    {
+        $this->permissions()->detach();
+
+        return $this->givePermissionTo($permissions);
+    }
+    
+
+    /**
      * users-permission (mengecek izin action dari user) & roles-permissions(mengecek izin action dari peran )
      */
     public function hasPermissionTo($permission)
