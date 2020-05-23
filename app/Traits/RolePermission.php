@@ -12,7 +12,7 @@ Trait RolePermission
      */
     public function hasPermissionTo($permission)
     {
-        return $this->hasPermission($permission);
+        return $this->hasPermissionThroughRole($permission) || $this->hasPermission($permission);
     }
 
     protected function hasPermission($permission)
@@ -20,7 +20,15 @@ Trait RolePermission
         return (bool) $this->permissions->where('name', $permission->name)->count();
     }
 
-        
+    public function hasPermissionThroughRole($permission)
+    {
+        foreach ($permission->roles as $role) {
+            if ($this->roles->contains($role)) {
+                return true;
+            }
+        }
+        return false;
+    }  
 
     /**
      * users-role (mengecek peran seorang user)
