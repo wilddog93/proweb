@@ -25,6 +25,18 @@ Trait RolePermission
     public function getPermissions(array $permissions)
     {
         return Permission::whereIn('name', $permissions)->get();
+    } 
+
+    /**
+     * Revoke permission untuk menarik/mencabut kembali permission pada users_permission table
+     * revokePermissions function to take it back permissions from users_permissions table
+     */
+    public function revokePermissions(... $permissions)
+    {
+        $permissions = $this->getPermissions($permissions);
+        $this->permissions()->detach($permissions);
+
+        return $this;
     }
 
     /**
