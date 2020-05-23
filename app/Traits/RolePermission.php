@@ -4,9 +4,29 @@ namespace App\Traits;
 
 use App\Permission;
 use App\Role;
+use Arr;
 
 Trait RolePermission
 {
+    /**
+     * add permission on users_permission table
+     */
+    public function givePermissionTo(... $permissions)
+    {
+        $permissions = $this->getPermissions($permissions);
+        if ($permissions === null) {
+            return $this;
+        }
+
+        $this->permissions()->saveMany($permissions);
+        return $this;
+    }
+
+    public function getPermissions(array $permissions)
+    {
+        return Permission::whereIn('name', $permissions)->get();
+    }
+
     /**
      * users-permission (mengecek izin action dari user) & roles-permissions(mengecek izin action dari peran )
      */

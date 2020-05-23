@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    dump(auth()->user()->can('edit post'));
+    $user = request()->user();
+    $user->givePermissionTo('edit posts', 'delete posts');
 });
 
 Auth::routes();
