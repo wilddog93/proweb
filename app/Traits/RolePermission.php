@@ -8,6 +8,19 @@ use App\Role;
 Trait RolePermission
 {
     /**
+     * users-permission (mengecek izin action user)
+     */
+    public function hasPermissionTo($permission)
+    {
+        return $this->hasPermission($permission);
+    }
+
+    public function hasPermission($permission)
+    {
+        return (bool) $this->permissions->where('name', $permission->name)->count();
+    }
+
+    /**
      * users-role (mengecek peran seorang user)
      */
     public function hasRole(... $roles)

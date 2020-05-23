@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    dump(auth()->user()->hasRole('admin'));
+    dump(auth()->user()->can('edit post'));
 });
 
 Auth::routes();
